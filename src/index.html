@@ -11,52 +11,65 @@
 
 <body>
   <main>
+    <section class="head">
+      <h1 class="section-head">Time measure</h1>
+    </section>
     <section class="time-measure">
       <div class="time-measure__container container">
         <div class="form-control">
-          <h1 class="form-control__title">Time measure</h1>
           <div class="form-control__items">
-            <div class="form-control__item" id="item-start">
-              <label class="form-control__label" for="start">From</label>
-              <input class="form-control__input-start" type="date" id="start-date">
+            <div class="form-control__item">
+              <div class="dates-input">
+                <div class="from" id="item-start">
+                  <label class="form-control__label" for="start">From</label>
+                  <input class="form-control__input-start" type="date" id="start-date">
+                </div>
+                <div class="to" id="item-end">
+                  <label class="form-control__label" for="end">To</label>
+                  <input class="form-control__input-end" type="date" id="end-date" disabled>
+                </div>
+              </div>
             </div>
 
-            <div class="form-control__item" id="item-end">
-              <label class="form-control__label" for="end">To</label>
-              <input class="form-control__input-end" type="date" id="end-date" disabled>
+            <div class="form-control__item">
+              <label for="preset-select">Custom mode</label>
+              <div class="form-control__preset-select">
+                <select id="preset-select">
+                  <option value="custom">Custom</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                  <option value="all">All days</option>
+                </select>
+                <span class="focus"></span>
+              </div>
             </div>
 
-            <select class="form-control__preset-select" id="preset-select">
-              <option value="custom">Custom</option>
-              <option value="week">Week</option>
-              <option value="month">Month</option>
-              <option value="all">All days</option>
-            </select>
-
-            <fieldset>
-              <legend>Duration between dates From and To:</legend>
-              <div>
-                <input type="checkbox" id="days" name="days">
-                <label for="days">Days</label>
-              </div>
-              <div>
-                <input type="checkbox" id="hours" name="hours">
-                <label for="hours">Hours</label>
-              </div>
-              <div>
-                <input type="checkbox" id="minutes" name="minutes">
-                <label for="minutes">Minutes</label>
-              </div>
-              <div>
-                <input type="checkbox" id="seconds" name="seconds">
-                <label for="seconds">Seconds</label>
+            <fieldset class="form-control__item duration-types" id="duration-types">
+              <legend>Duration between dates From and To</legend>
+              <div class="duration-types__list">
+                <div class="duration-types__item">
+                  <input type="checkbox" id="days" name="days">
+                  <label for="days">Days</label>
+                </div>
+                <div class="duration-types__item">
+                  <input type="checkbox" id="hours" name="hours">
+                  <label for="hours">Hours</label>
+                </div>
+                <div class="duration-types__item">
+                  <input type="checkbox" id="minutes" name="minutes">
+                  <label for="minutes">Minutes</label>
+                </div>
+                <div class="duration-types__item">
+                  <input type="checkbox" id="seconds" name="seconds">
+                  <label for="seconds">Seconds</label>
+                </div>
               </div>
             </fieldset>
 
-            <button class="form-control__btn">Calculate duration</button>
+            <button class="form-control__btn" type="button">Calculate duration</button>
             
             <div id="result">
-              <label for="result-label">Result:</label>
+              <label for="result-label">Result</label>
               <textarea id="result-area" name="result-area" rows="5" cols="33"></textarea>
             </div>
           </div>
