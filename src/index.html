@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css" /> 
+  <title>Document</title>
+</head>
+
+<body>
+  <main>
+    <section class="time-measure">
+      <div class="time-measure__container container">
+        <div class="form-control">
+          <h1 class="form-control__title">Time measure</h1>
+          <div class="form-control__items">
+            <div class="form-control__item" id="item-start">
+              <label class="form-control__label" for="start">From</label>
+              <input class="form-control__input-start" type="date" id="start-date">
+            </div>
+
+            <div class="form-control__item" id="item-end">
+              <label class="form-control__label" for="end">To</label>
+              <input class="form-control__input-end" type="date" id="end-date" disabled>
+            </div>
+
+            <select class="form-control__preset-select" id="preset-select">
+              <option value="custom">Custom</option>
+              <option value="week">Week</option>
+              <option value="month">Month</option>
+              <option value="all">All days</option>
+            </select>
+
+            <fieldset>
+              <legend>Duration between dates From and To:</legend>
+              <div>
+                <input type="checkbox" id="days" name="days">
+                <label for="days">Days</label>
+              </div>
+              <div>
+                <input type="checkbox" id="hours" name="hours">
+                <label for="hours">Hours</label>
+              </div>
+              <div>
+                <input type="checkbox" id="minutes" name="minutes">
+                <label for="minutes">Minutes</label>
+              </div>
+              <div>
+                <input type="checkbox" id="seconds" name="seconds">
+                <label for="seconds">Seconds</label>
+              </div>
+            </fieldset>
+
+            <button class="form-control__btn">Calculate duration</button>
+            
+            <div id="result">
+              <label for="result-label">Result:</label>
+              <textarea id="result-area" name="result-area" rows="5" cols="33"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="index.js"></script>
+</body>
+
+</html>
