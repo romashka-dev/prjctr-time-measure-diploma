@@ -11,6 +11,7 @@
   --warning: red;
   --button-color: #2d66f4;
   --button-hover: #1853e8;
+  --table-border: #eee;
 }
 /* VARRIABLES ==> END */
 
@@ -55,14 +56,45 @@ textarea {
   padding: 30px 0 60px;
 }
 
+.time-measure__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+}
+
 .form-control {
-  margin: 0 auto;
   padding: 20px;
   min-height: 382px;
   max-width: 482px;
   border-radius: 8px;
   background-color: var(--body-background-2);
   box-shadow: 0 8px 40px rgba(0,0,0,.1);
+}
+
+.data-output > span {
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.data-output__preview {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 382px
+}
+
+.data-output__items {
+  display: flex;
+}
+
+.data-output__items > p {
+  flex: 1 1 100px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid var(--table-border);
 }
 
 .section-head {
@@ -296,10 +328,19 @@ fieldset > legend {
   .duration-types__item {
     margin-right: 24px;
   }
+
+  .data-output__preview {
+    min-width: 482px;
+  }
 }
 
 /* CSS for 992px – 1119px */
 @media (min-width: 992px) {
+  .time-measure__container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   .duration-types__item > input {
     width: 20px;
     height: 20px;

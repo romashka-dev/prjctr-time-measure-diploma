@@ -229,6 +229,29 @@ const saveDataToLocalStorage = () => {
   localStorage.setItem('savedResults', JSON.stringify(savedResults));
 };
 
+const renderDataFromLocalStorage = () => {
+  const showDataElement = document.getElementById('show-localstorage-data');
+  const savedResults = localStorage.getItem('savedResults');
+
+  // Перевірка, чи є збережені результати
+  if (savedResults) {
+    const resultsArray = JSON.parse(savedResults);
+
+    // Створення HTML-рядка для виведення кожного результату
+    const resultsHTML = resultsArray.map(result => {
+      return `<div class="data-output__items">
+                <p class="data-output__start">Start Date: ${result.startDate}</p>
+                <p class="data-output__end">End Date: ${result.endDate}</p>
+                <p class="data-output__result">Result: ${result.result}</p>
+              </div>`;
+    }).join('');
+
+    showDataElement.innerHTML = resultsHTML;
+  } else {
+    showDataElement.innerHTML = '<p>No saved results found.</p>';
+  }
+}
+
 const initCalculateDuration = () => {
   const trigger = document.querySelector('.form-control__btn');
 
@@ -248,6 +271,9 @@ const initCalculateDuration = () => {
     // Збереження у локальному сховищі останніх 10 результатів, які рахував юзер на сторінці в додатку
     saveDataToLocalStorage();
   });
+
+  // Виведення данних з LocalStorage на сторінку
+  renderDataFromLocalStorage();
 };
 
 initCalculateDuration();
