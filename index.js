@@ -112,6 +112,14 @@ const addPresetSelectFunctionality = () => {
           endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
           message = "Duration in week between dates From and To";
           break;
+        case 'weekdays':
+          endDate = calculateEndDateWithWeekdays(startDate);
+          message = "Duration for 7 weekdays between dates From and To";
+          break;
+        case 'weekend':
+          endDate = calculateEndDateWithWeekend(startDate);
+          message = "Duration for 7 weekends between dates From and To";
+          break;
         case 'month':
           endDate = new Date(startDate.getTime());
           endDate.setMonth(endDate.getMonth() + 1);
@@ -135,6 +143,34 @@ const addPresetSelectFunctionality = () => {
       resultArea.textContent = "Please, choose a start date first!";
     }
   });
+};
+
+const calculateEndDateWithWeekdays = (startDate) => {
+  let endDate = new Date(startDate.getTime());
+  let count = 0;
+
+  while (count < 7) {
+    endDate.setDate(endDate.getDate() + 1);
+    if (endDate.getDay() !== 0 && endDate.getDay() !== 6) {
+      count++;
+    }
+  }
+
+  return endDate;
+};
+
+const calculateEndDateWithWeekend = (startDate) => {
+  let endDate = new Date(startDate.getTime());
+  let count = 0;
+
+  while (count < 7) {
+    endDate.setDate(endDate.getDate() + 1);
+    if (endDate.getDay() === 0 || endDate.getDay() === 6) {
+      count++;
+    }
+  }
+
+  return endDate;
 };
 
 const durationBetweenDates = (dateFrom = new Date('31 Jan 2022'), dateTo = new Date(), dimension = 'days') => {
@@ -183,11 +219,14 @@ const initDurationBetweenDates = () => {
   const startDate = new Date(getStartDateValue());
   const endDate = new Date(getEndDateValue());
   const resultArea = document.getElementById('result-area');
+  const activeCheckbox = document.querySelector(".duration-types__item input:checked");
 
-  if (startDate > endDate) {
-    resultArea.textContent = "The end date can't be earlier than the start date!";
-  } else {
+  if (activeCheckbox) {
     resultArea.textContent = result;
+  } else if (startDate > endDate) {
+    resultArea.textContent = "The end date can't be earlier than the start date!";
+  } else if (startDate < endDate) {
+    resultArea.textContent = "Please choose custom mode and activate checkbox days/hours/minutes/seconds in order to calculate duration!";
   }
 };
 
