@@ -112,23 +112,10 @@ const addPresetSelectFunctionality = () => {
           endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
           message = "Duration in week between dates From and To";
           break;
-        case 'weekdays':
-          endDate = calculateEndDateWithWeekdays(startDate);
-          message = "Duration for 7 weekdays between dates From and To";
-          break;
-        case 'weekend':
-          endDate = calculateEndDateWithWeekend(startDate);
-          message = "Duration for 7 weekends between dates From and To";
-          break;
         case 'month':
           endDate = new Date(startDate.getTime());
           endDate.setMonth(endDate.getMonth() + 1);
           message = "Duration in month between dates From and To";
-          break;
-        case 'all':
-          endDate = new Date(startDate.getTime());
-          endDate.setFullYear(endDate.getFullYear() + 1);
-          message = "Duration for all days between dates From and To";
           break;
         default:
           return;
@@ -145,32 +132,23 @@ const addPresetSelectFunctionality = () => {
   });
 };
 
-const calculateEndDateWithWeekdays = (startDate) => {
-  let endDate = new Date(startDate.getTime());
-  let count = 0;
+const calculateTypeOfDays = (startDate, endDate, type) => {
+  const oneDay = 24 * 60 * 60 * 1000;
+  let currentDay = new Date(startDate);
+  let count = { weekdays: 0, weekends: 0, alldays: 0 };
 
-  while (count < 7) {
-    endDate.setDate(endDate.getDate() + 1);
-    if (endDate.getDay() !== 0 && endDate.getDay() !== 6) {
-      count++;
+  while (currentDay <= endDate) {
+    const dayOfWeek = currentDay.getDay();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      count.weekends++;
+    } else {
+      count.weekdays++;
     }
+    count.alldays++;
+    currentDay = new Date(currentDay.getTime() + oneDay);
   }
 
-  return endDate;
-};
-
-const calculateEndDateWithWeekend = (startDate) => {
-  let endDate = new Date(startDate.getTime());
-  let count = 0;
-
-  while (count < 7) {
-    endDate.setDate(endDate.getDate() + 1);
-    if (endDate.getDay() === 0 || endDate.getDay() === 6) {
-      count++;
-    }
-  }
-
-  return endDate;
+  return count[type] || 0;
 };
 
 const durationBetweenDates = (dateFrom = new Date('31 Jan 2022'), dateTo = new Date(), dimension = 'days') => {
@@ -204,15 +182,29 @@ const durationBetweenDates = (dateFrom = new Date('31 Jan 2022'), dateTo = new D
 };
 
 const initDurationBetweenDates = () => {
-  const checkboxes = ['days', 'hours', 'minutes', 'seconds'];
+  const startDateValue = getStartDateValue();
+  const endDateValue = getEndDateValue();
+  const start = new Date(startDateValue);
+  const end = new Date(endDateValue);
+
+  const checkboxes1 = ['days', 'hours', 'minutes', 'seconds'];
+  const checkboxes2 = ['weekdays', 'weekends', 'alldays'];
   let result = '';
 
   // Перевірка обраних чекбоксів та розрахунок тривалості
-  checkboxes.forEach(checkboxId => {
+  checkboxes1.forEach(checkboxId => {
     const checkbox = document.getElementById(checkboxId);
     if (checkbox.checked) {
       const duration = durationBetweenDates(undefined, undefined, checkboxId);
       result += `${duration}\n`;
+    }
+  });
+
+  checkboxes2.forEach(checkboxId => {
+    const checkbox = document.getElementById(checkboxId);
+    if (checkbox.checked) {
+      const duration = calculateTypeOfDays(start, end, checkboxId);
+      result += `${duration} ${checkboxId}\n`;
     }
   });
 
@@ -226,7 +218,7 @@ const initDurationBetweenDates = () => {
   } else if (startDate > endDate) {
     resultArea.textContent = "The end date can't be earlier than the start date!";
   } else if (startDate < endDate) {
-    resultArea.textContent = "Please choose custom mode and activate checkbox days/hours/minutes/seconds in order to calculate duration!";
+    resultArea.textContent = "Please, choose any type of duration!";
   }
 };
 

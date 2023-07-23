@@ -111,7 +111,7 @@ textarea {
 }
 
 .data-output__items:nth-child(odd) > p {
-  background-color: #A0BFE0;
+  background-color: #a0bfe0;
 }
 
 .section-head {
@@ -290,16 +290,72 @@ fieldset > legend {
   margin-left: 8px;
 }
 
-.duration-types__item > input {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-}
-
-.duration-types__item {
+.checkbox {
+  position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.checkbox input {
+  position: absolute;
+  z-index: 10;
+  width: 0;
+  right: 0;
+  height: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox .checkmark {
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 3px;
+  outline: 1px solid #acacac;
+  transition: all 0.2s ease;
+}
+
+.checkbox:hover .checkmark {
+  background: #f4f4f5;
+  transition: all 0.2s ease;
+}
+
+.checkbox input:checked ~.checkmark {
+  background: #3f7fed;
+  outline: 1px solid rgb(95, 126, 240);
+}
+
+.checkbox .checkmark::after {
+  position: absolute;
+  display: block;
+  content: "";
+  left: 50%;
+  top: 40%;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  -moz-transform: translate(-50%, -50%) rotate(45deg);
+  -ms-transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.checkbox input:checked ~ .checkmark::after {
+  opacity: 1;
+  transition: all 0.2s ease;
 }
 
 /* CSS for 375px – 767px */
@@ -342,14 +398,14 @@ fieldset > legend {
     flex-direction: row;
   }
 
-  .duration-types__item {
+  .checkbox {
     margin-right: 24px;
   }
 }
 
 /* CSS for 992px – 1119px */
 @media (min-width: 992px) {
-  .duration-types__item > input {
+  .checkbox > input {
     width: 20px;
     height: 20px;
   }

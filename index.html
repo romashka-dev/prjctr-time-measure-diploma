@@ -38,39 +38,65 @@
                 <select id="preset-select">
                   <option value="custom">Custom</option>
                   <option value="week">Week</option>
-                  <option value="weekdays">Weekdays</option>
-                  <option value="weekend">Weekend</option>
                   <option value="month">Month</option>
-                  <option value="all">All days</option>
                 </select>
                 <span class="focus"></span>
               </div>
             </div>
 
-            <fieldset class="form-control__item duration-types" id="duration-types">
-              <legend>Duration between dates From and To</legend>
-              <div class="duration-types__list">
-                <div class="duration-types__item">
-                  <input type="checkbox" id="days" name="days">
-                  <label for="days">Days</label>
+            <form>
+              <fieldset class="form-control__item duration-types" id="duration-user-options">
+                <legend>Type of duration 1</legend>
+                <div class="duration-types__list">
+                  <div class="duration-types__item checkbox">
+                    <label for="weekdays">Weekdays</label>
+                    <input type="checkbox" id="weekdays" name="weekdays">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="duration-types__item checkbox">
+                    <label for="weekends">Weekend</label>
+                    <input type="checkbox" id="weekends" name="weekends">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="duration-types__item checkbox">
+                    <label for="all-days">All days</label>
+                    <input type="checkbox" id="alldays" name="alldays">
+                    <span class="checkmark"></span>
+                  </div>
                 </div>
-                <div class="duration-types__item">
-                  <input type="checkbox" id="hours" name="hours">
-                  <label for="hours">Hours</label>
+              </fieldset>
+            </form>
+
+            <form>
+              <fieldset class="form-control__item duration-types" id="duration-types">
+                <legend>Type of duration 2</legend>
+                <div class="duration-types__list">
+                  <div class="duration-types__item checkbox">
+                    <label for="days">Days</label>
+                    <input type="checkbox" id="days" name="days">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="duration-types__item checkbox">
+                    <label for="hours">Hours</label>
+                    <input type="checkbox" id="hours" name="hours">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="duration-types__item checkbox">
+                    <label for="minutes">Minutes</label>
+                    <input type="checkbox" id="minutes" name="minutes">
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="duration-types__item checkbox">
+                    <label for="seconds">Seconds</label>
+                    <input type="checkbox" id="seconds" name="seconds">
+                    <span class="checkmark"></span>
+                  </div>
                 </div>
-                <div class="duration-types__item">
-                  <input type="checkbox" id="minutes" name="minutes">
-                  <label for="minutes">Minutes</label>
-                </div>
-                <div class="duration-types__item">
-                  <input type="checkbox" id="seconds" name="seconds">
-                  <label for="seconds">Seconds</label>
-                </div>
-              </div>
-            </fieldset>
+              </fieldset>
+            </form>
 
             <button class="form-control__btn" type="button">Calculate duration</button>
-            
+
             <div id="result">
               <label for="result-label">Result</label>
               <textarea id="result-area" name="result-area" rows="5" cols="33"></textarea>
