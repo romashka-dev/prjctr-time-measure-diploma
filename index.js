@@ -15,19 +15,15 @@ const getEndDateValue = () => {
 const removeAttrDisabled = () => {
   const startDate = document.getElementById('start-date');
   const endDate = document.getElementById('end-date');
-  const presetSelect = document.getElementById('preset-select');
-  const durationTypes = document.getElementById('duration-types');
 
   const setDisabledState = (disabled) => {
     endDate.disabled = disabled;
-    presetSelect.disabled = disabled;
-    durationTypes.disabled = disabled;
   };
 
   const updateDisabledState = () => {
     if (startDate.value) {
       setDisabledState(false);
-    } else if (!startDate.value && !endDate.value)  {
+    } else {
       setDisabledState(true);
     }
   };
@@ -35,6 +31,23 @@ const removeAttrDisabled = () => {
   startDate.addEventListener('change', updateDisabledState);
   updateDisabledState();
 };
+
+const stopChooseDatesBeforeEndDate = () => {
+  const startDateInput = document.getElementById('start-date');
+  const endDateInput = document.getElementById('end-date');
+
+  startDateInput.addEventListener('change', function() {
+    const startDateValue = startDateInput.value;
+
+    endDateInput.min = startDateValue;
+
+    // Перевіряємо, чи обрана дата в полі "end-date" більше за дату в полі "start-date".
+    // Якщо так, то оновлюємо значення поля "end-date".
+    if (endDateInput.value < startDateValue) {
+      endDateInput.value = startDateValue;
+    }
+  });
+}
 
 const checkEndDate = () => {
   const startDateValue = getStartDateValue();
@@ -66,7 +79,7 @@ const setDatesAtInputs = () => {
 
     // Додаємо ще span з текстом для валідації
     const warningText = document.createElement('span');
-    warningText.textContent = "Please choose start date!";
+    warningText.textContent = "Please, choose start date!";
     warningText.classList.add('warning-text');
     startDateDiv.appendChild(warningText);
   } else if (!endDateInput.value) {
@@ -74,7 +87,7 @@ const setDatesAtInputs = () => {
 
     // Додаємо ще span з текстом для валідації
     const warningText = document.createElement('span');
-    warningText.textContent = "Please choose end date!";
+    warningText.textContent = "Please, choose end date!";
     warningText.classList.add('warning-text');
     endDateDiv.appendChild(warningText);
   } else {
@@ -84,6 +97,7 @@ const setDatesAtInputs = () => {
     // Видаляємо span з текстом, якщо він існує
     const existingWarningTextFirstInput = startDateDiv.querySelector('.warning-text');
     const existingWarningTextSecondInput = endDateDiv.querySelector('.warning-text');
+
     if (existingWarningTextFirstInput) {
       existingWarningTextFirstInput.remove();
     }
@@ -97,7 +111,6 @@ const setDatesAtInputs = () => {
 const addPresetSelectFunctionality = () => {
   const endDateInput = document.getElementById('end-date');
   const presetSelect = document.getElementById('preset-select');
-  const resultArea = document.getElementById('result-area');
 
   presetSelect.addEventListener('change', function() {
     const startDateValue = getStartDateValue();
@@ -105,17 +118,14 @@ const addPresetSelectFunctionality = () => {
     if (startDateValue) {
       const startDate = new Date(startDateValue);
       let endDate;
-      let message;
 
       switch (presetSelect.value) {
         case 'week':
           endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-          message = "Duration in week between dates From and To";
           break;
         case 'month':
           endDate = new Date(startDate.getTime());
           endDate.setMonth(endDate.getMonth() + 1);
-          message = "Duration in month between dates From and To";
           break;
         default:
           return;
@@ -123,11 +133,10 @@ const addPresetSelectFunctionality = () => {
 
       const formattedEndDate = endDate.toISOString().slice(0, 10);
       endDateInput.value = formattedEndDate;
-      resultArea.textContent = message;
     } else {
       // Обробити випадок, коли дата початку не вибрана
       endDateInput.value = '';
-      resultArea.textContent = "Please, choose a start date first!";
+      console.error("Please, choose a start date first!");
     }
   });
 };
@@ -159,7 +168,7 @@ const durationBetweenDates = (dateFrom = new Date('31 Jan 2022'), dateTo = new D
 
   // Перевіряємо чи дійсно в змінних буде дата, щоби уникнути помилок
   if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-    return "Invalid date: Please, choose both dates to calculate duration between dates!";
+    return console.error("Invalid date: Please, choose both dates to calculate duration between dates!");
   }
 
   const durationInSeconds = Math.ceil(Math.abs(end.getTime() - start.getTime()) / 1000);
@@ -216,9 +225,9 @@ const initDurationBetweenDates = () => {
   if (activeCheckbox) {
     resultArea.textContent = result;
   } else if (startDate > endDate) {
-    resultArea.textContent = "The end date can't be earlier than the start date!";
+    console.error("The end date can't be earlier than the start date!");
   } else if (startDate < endDate) {
-    resultArea.textContent = "Please, choose any type of duration!";
+    console.error("Please, choose any type of duration!");
   }
 };
 
@@ -287,6 +296,7 @@ const initCalculateDuration = () => {
   const trigger = document.querySelector('.form-control__btn');
 
   removeAttrDisabled();
+  stopChooseDatesBeforeEndDate();
   addPresetSelectFunctionality();
 
   trigger.addEventListener('click', function () {
@@ -301,10 +311,10 @@ const initCalculateDuration = () => {
 
     // Збереження у локальному сховищі останніх 10 результатів, які рахував юзер на сторінці в додатку
     saveDataToLocalStorage();
-  });
 
-  // Виведення данних з LocalStorage на сторінку
-  renderDataFromLocalStorage();
+    // Виведення данних з LocalStorage на сторінку
+    renderDataFromLocalStorage();
+  });
 };
 
 initCalculateDuration();

@@ -330,7 +330,7 @@ fieldset > legend {
   transition: all 0.2s ease;
 }
 
-.checkbox input:checked ~.checkmark {
+.checkbox input:checked ~ .checkmark {
   background: #3f7fed;
   outline: 1px solid rgb(95, 126, 240);
 }
