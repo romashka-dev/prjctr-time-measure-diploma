@@ -6,7 +6,6 @@
   --border-color: #aaa;
   --border-color-focus: blue;
   --select-arrow: var(--border-color);
-  --warning: red;
   --button-color: #2d66f4;
   --button-hover: #1853e8;
   --table-desc-bg: #4a55a2;
@@ -133,6 +132,14 @@ textarea {
   gap: 12px;
 }
 
+.form-control__input-start {
+  width: 100%;
+}
+
+.form-control__input-end {
+  width: 100%;
+}
+
 .form-control__item {
   position: relative;
   display: flex;
@@ -145,28 +152,9 @@ textarea {
 }
 
 .form-control__item input {
-  width: 100%;
-  height: 36px;
   padding: 12px;
   border-radius: 4px;
   border: 1px solid var(--border-color);
-}
-
-.warning {
-  position: relative;
-}
-
-.warning input {
-  border: 1px solid var(--warning);
-}
-
-.warning span {
-  position: absolute;
-  right: 0;
-  bottom: -20px;
-  font-size: 14px;
-  line-height: 20px;
-  color: red;
 }
 
 select {
@@ -291,71 +279,11 @@ fieldset > legend {
 }
 
 .checkbox {
-  position: relative;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
+  align-self: start;
   gap: 4px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.checkbox input {
-  position: absolute;
-  z-index: 10;
-  width: 0;
-  right: 0;
-  height: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkbox .checkmark {
-  position: relative;
-  display: block;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 3px;
-  outline: 1px solid #acacac;
-  transition: all 0.2s ease;
-}
-
-.checkbox:hover .checkmark {
-  background: #f4f4f5;
-  transition: all 0.2s ease;
-}
-
-.checkbox input:checked ~ .checkmark {
-  background: #3f7fed;
-  outline: 1px solid rgb(95, 126, 240);
-}
-
-.checkbox .checkmark::after {
-  position: absolute;
-  display: block;
-  content: "";
-  left: 50%;
-  top: 40%;
-  width: 4px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: translate(-50%, -50%) rotate(45deg);
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-  -moz-transform: translate(-50%, -50%) rotate(45deg);
-  -ms-transform: translate(-50%, -50%) rotate(45deg);
-  opacity: 0;
-  transition: all 0.2s ease;
-}
-
-.checkbox input:checked ~ .checkmark::after {
-  opacity: 1;
-  transition: all 0.2s ease;
 }
 
 /* CSS for 375px – 767px */
@@ -406,8 +334,8 @@ fieldset > legend {
 /* CSS for 992px – 1119px */
 @media (min-width: 992px) {
   .checkbox > input {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 }
 

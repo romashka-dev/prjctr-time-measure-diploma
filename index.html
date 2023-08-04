@@ -30,7 +30,7 @@
                   <input class="form-control__input-end" type="date" id="end-date" min="#" disabled>
                 </div>
               </div>
-              </div>
+            </div>
 
             <div class="form-control__item">
               <label for="preset-select">Custom mode</label>
@@ -50,18 +50,15 @@
                 <div class="duration-types__list">
                   <div class="duration-types__item checkbox">
                     <label for="weekdays">Weekdays</label>
-                    <input type="checkbox" id="weekdays" name="weekdays">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="weekdays" name="durationType" value="weekdays" />
                   </div>
                   <div class="duration-types__item checkbox">
                     <label for="weekends">Weekend</label>
-                    <input type="checkbox" id="weekends" name="weekends">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="weekends" name="durationType" value="weekends" />
                   </div>
                   <div class="duration-types__item checkbox">
                     <label for="alldays">All days</label>
-                    <input type="checkbox" id="alldays" name="alldays">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="alldays" name="durationType" value="alldays" />
                   </div>
                 </div>
               </fieldset>
@@ -73,23 +70,19 @@
                 <div class="duration-types__list">
                   <div class="duration-types__item checkbox">
                     <label for="days">Days</label>
-                    <input type="checkbox" id="days" name="days">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="days" name="durationType" value="days" />
                   </div>
                   <div class="duration-types__item checkbox">
                     <label for="hours">Hours</label>
-                    <input type="checkbox" id="hours" name="hours">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="hours" name="durationType" value="hours" />
                   </div>
                   <div class="duration-types__item checkbox">
                     <label for="minutes">Minutes</label>
-                    <input type="checkbox" id="minutes" name="minutes">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="minutes" name="durationType" value="minutes" />
                   </div>
                   <div class="duration-types__item checkbox">
                     <label for="seconds">Seconds</label>
-                    <input type="checkbox" id="seconds" name="seconds">
-                    <span class="checkmark"></span>
+                    <input type="radio" id="seconds" name="durationType" value="seconds" />
                   </div>
                 </div>
               </fieldset>
